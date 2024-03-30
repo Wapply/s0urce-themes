@@ -26,6 +26,4 @@ This Tampermonkey script modifies the appearance and behavior of the s0urce.io w
 ## Meta
 
 - **Version**: 1.0.9
-- **Author**: [Wapply](#)
-- **Download URL**: [s0urce-tor_browser-theme](https://raw.githubusercontent.com/Wapply/s0urce-tor_browser-theme/new/main/theme.js)
-- **Update URL**: [s0urce-tor_browser-theme](https://raw.githubusercontent.com/Wapply/s0urce-tor_browser-theme/new/main/theme.js)
+- **Author**: [Wapply](https://github.com/Wapply)

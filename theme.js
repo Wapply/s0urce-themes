@@ -1,11 +1,13 @@
 // ==UserScript==
 // @name         s0urce-tor_browser-theme
 // @namespace    http://tampermonkey.net/
-// @version      1.0.8
+// @version      1.0.9
 // @description  Modify s0urce.io to have a Tor Browser style.
 // @author       Wapply
 // @match        https://s0urce.io/*
 // @grant        GM_addStyle
+// @grant        GM_setValue
+// @grant        GM_getValue
 // @downloadURL https://raw.githubusercontent.com/Wapply/s0urce-tor_browser-theme/new/main/theme.js
 // @updateURL   https://raw.githubusercontent.com/Wapply/s0urce-tor_browser-theme/new/main/theme.js
 // ==/UserScript==
@@ -50,10 +52,13 @@
         div[ondragover="return true"][draggable="true"][style="position: relative; width: 154.8px; height: 86px; font-size: 16px; float: left;"] {
             height: 86px !important;
         }
-
-        /* Update Spotify playlist iframe src */
-        iframe[src="https://open.spotify.com/embed/playlist/6lSuPyzhGN5XOl9qPtttEj?utm_source=generator&amp;theme=0"] {
-            src: "https://open.spotify.com/embed/playlist/4nngjhtJEKEnZSdP8yW8PZ?utm_source=generator&amp;theme=0" !important;
-        }
     `);
+
+    // Update Spotify playlist iframe src using JavaScript
+    setInterval(() => {
+        const iframe = document.querySelector('.window-content.svelte-1hjm43z iframe');
+        if (iframe && iframe.src !== "https://open.spotify.com/embed/playlist/4nngjhtJEKEnZSdP8yW8PZ?utm_source=generator&theme=0") {
+            iframe.src = "https://open.spotify.com/embed/playlist/4nngjhtJEKEnZSdP8yW8PZ?utm_source=generator&theme=0";
+        }
+    }, 1000); // Check every 1 second
 })();

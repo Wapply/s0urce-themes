@@ -10,7 +10,11 @@
 // @updateURL   https://raw.githubusercontent.com/Wapply/s0urce-tor_browser-theme/new/main/theme.js
 // ==/UserScript==
 
-`
+(function() {
+    'use strict';
+
+    // Add custom CSS to modify background image and element styles
+    GM_addStyle(`
         /* Define custom CSS variables */
         :root {
             --color-terminal: #c567f0;

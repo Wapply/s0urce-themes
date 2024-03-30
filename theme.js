@@ -52,8 +52,8 @@
         }
 
         /* Update Spotify playlist iframe src */
-        iframe[src="https://open.spotify.com/embed/playlist/4nngjhtJEKEnZSdP8yW8PZ?utm_source=generator&theme=0"] {
-            src: "https://open.spotify.com/embed/playlist/YOUR_NEW_PLAYLIST_ID?utm_source=generator&theme=0" !important;
+        iframe[src="https://open.spotify.com/embed/playlist/6lSuPyzhGN5XOl9qPtttEj?utm_source=generator&amp;theme=0"] {
+            src: "https://open.spotify.com/embed/playlist/4nngjhtJEKEnZSdP8yW8PZ?utm_source=generator&amp;theme=0" !important;
         }
     `);
 })();

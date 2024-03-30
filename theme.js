@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         s0urce-tor_browser-theme
 // @namespace    http://tampermonkey.net/
-// @version      1.0.7
+// @version      1.0.8
 // @description  Modify s0urce.io to have a Tor Browser style.
 // @author       Wapply
 // @match        https://s0urce.io/*
@@ -10,11 +10,7 @@
 // @updateURL   https://raw.githubusercontent.com/Wapply/s0urce-tor_browser-theme/new/main/theme.js
 // ==/UserScript==
 
-(function() {
-    'use strict';
-
-    // Add custom CSS to modify background image and element styles
-    GM_addStyle(`
+`
         /* Define custom CSS variables */
         :root {
             --color-terminal: #c567f0;
@@ -49,6 +45,11 @@
         /* Modify height of specific div */
         div[ondragover="return true"][draggable="true"][style="position: relative; width: 154.8px; height: 86px; font-size: 16px; float: left;"] {
             height: 86px !important;
+        }
+
+        /* Update Spotify playlist iframe src */
+        iframe[src="https://open.spotify.com/embed/playlist/4nngjhtJEKEnZSdP8yW8PZ?utm_source=generator&theme=0"] {
+            src: "https://open.spotify.com/embed/playlist/YOUR_NEW_PLAYLIST_ID?utm_source=generator&theme=0" !important;
         }
     `);
 })();

@@ -52,7 +52,39 @@
         div[ondragover="return true"][draggable="true"][style="position: relative; width: 154.8px; height: 86px; font-size: 16px; float: left;"] {
             height: 86px !important;
         }
+
+        /* Toggle button styles */
+        #toggleBtn {
+            position: fixed;
+            top: 9px;
+            right: 1000px;
+            z-index: 9999;
+            background-color: var(--toggle-btn-color);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
     `);
+
+    // Create toggle button
+    const toggleBtn = document.createElement('button');
+    toggleBtn.id = 'toggleBtn';
+    toggleBtn.textContent = 'Auto-Remove: ON';
+
+    // Append toggle button to the body
+    document.body.appendChild(toggleBtn);
+
+    let isAutoRemoveEnabled = true; // Default is true
+
+    // Toggle auto-remove functionality
+    toggleBtn.addEventListener('click', () => {
+        isAutoRemoveEnabled = !isAutoRemoveEnabled;
+        toggleBtn.textContent = `Auto-Remove: ${isAutoRemoveEnabled ? 'ON' : 'OFF'}`;
+    });
 
     // Function to check if an element matches the specified structure for the hack message window
     function matchesHackMessageStructure(element) {
@@ -62,6 +94,8 @@
 
     // Function to remove the entire window containing the specified structure
     function removeHackMessageWindow() {
+        if (!isAutoRemoveEnabled) return; // Exit if auto-remove is disabled
+
         const elements = document.querySelectorAll('div.window.svelte-1hjm43z.window-selected');
 
         // Loop through each matching element for the hack message window and remove it if it matches the structure

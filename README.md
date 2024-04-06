@@ -32,7 +32,7 @@ This Tampermonkey script enhances the appearance and user experience of the s0ur
 ## Meta
 
 - **Version**: 1.0.0
-- **Authors**: [Wapply](https://github.com/Wapply) & [AlphaBay03](https://github.com/AlphaBay03)
+- **Authors**: [Wapply](https://github.com/Wapply) & AlphaBay03
 
 
 # s0urce-tor_browser-theme

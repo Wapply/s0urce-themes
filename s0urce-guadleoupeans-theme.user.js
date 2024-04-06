@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         s0urce-guadleoupeans-theme
 // @namespace    http://tampermonkey.net/
-// @version      1.0.0
+// @version      1.0.1
 // @description  Official Guadloupeans Empire Theme
 // @author       Wapply & AlphaBay03
 // @match        https://s0urce.io/*
@@ -106,28 +106,51 @@
         }
     `);
 
-    // Check for progress and display it with a progress bar
-    setInterval(() => {
-        const elements = document.querySelectorAll('.message');
+let progressBar = null;
+let hasReached100 = false; // Flag to track if progress has reached 100%
 
-        elements.forEach(element => {
-            const progressText = element.textContent.match(/Progress: (\d+\.\d+)%/);
-            if (progressText && progressText[1]) {
-                let progressValue = parseFloat(progressText[1]);
-                progressValue = progressValue > 100 ? 100 : progressValue; // Cap at 100%
+// Check for progress and display it with a progress bar
+setInterval(() => {
+    const elements = document.querySelectorAll('.message');
 
-                const progressBar = document.getElementById('progressBar');
-                if (progressBar) {
-                    progressBar.querySelector('.progress').style.width = `${progressValue}%`;
-                } else {
-                    const newProgressBar = document.createElement('div');
-                    newProgressBar.id = 'progressBar';
-                    newProgressBar.innerHTML = `<div class="progress" style="width: ${progressValue}%;"></div>`;
-                    document.body.appendChild(newProgressBar);
+    elements.forEach(element => {
+        const progressText = element.textContent.match(/Progress: (\d+\.?\d*%|100%)/);
+
+        if (progressText && progressText[1]) {
+            let progressValue = parseFloat(progressText[1]);
+            progressValue = progressValue > 100 ? 100 : progressValue; // Cap at 100%
+
+            console.log(`Detected progress value: ${progressValue}%`);
+
+            if (progressBar) {
+                progressBar.querySelector('.progress').style.width = `${progressValue}%`;
+
+                // Check if progress has reached 100%
+                if (progressValue >= 100 && !hasReached100) {
+                    hasReached100 = true;
+                    console.log('Progress bar reached 100%. Waiting for new progress...');
                 }
+
+                // Remove progress bar if it has reached 100% and new progress detected
+                if (progressValue < 100 && hasReached100) {
+                    progressBar.remove();
+                    progressBar = null;
+                    hasReached100 = false;
+                    console.log('Removed progress bar after 100%');
+                }
+            } else {
+                progressBar = document.createElement('div');
+                progressBar.id = 'progressBar';
+                progressBar.innerHTML = `<div class="progress" style="width: ${progressValue}%;"></div>`;
+                document.body.appendChild(progressBar);
+                console.log(`Added new progress bar with value: ${progressValue}%`);
             }
-        });
-    }, 1000); // Check every 1 second
+        } else {
+            console.log('No progress text found.');
+        }
+    });
+}, 1000); // Check every 1 second
+
 
     // Create toggle button
     const toggleBtn = document.createElement('button');

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         s0urce-guadleoupeans-theme
 // @namespace    http://tampermonkey.net/
-// @version      1.0.0
+// @version      1.0.2
 // @description  Official Guadloupeans Empire Theme
 // @author       Wapply & AlphaBay03
 // @match        https://s0urce.io/*

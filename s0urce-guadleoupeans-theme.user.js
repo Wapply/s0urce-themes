@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         s0urce-guadleoupeans-theme
 // @namespace    http://tampermonkey.net/
-// @version      1.0.1
+// @version      1.0.0
 // @description  Official Guadloupeans Empire Theme
 // @author       Wapply & AlphaBay03
 // @match        https://s0urce.io/*
@@ -128,15 +128,15 @@ setInterval(() => {
                 // Check if progress has reached 100%
                 if (progressValue >= 100 && !hasReached100) {
                     hasReached100 = true;
+                    progressBar.style.display = 'none'; // Hide the progress bar
                     console.log('Progress bar reached 100%. Waiting for new progress...');
                 }
 
-                // Remove progress bar if it has reached 100% and new progress detected
+                // Re-show the progress bar if a new progress update is detected
                 if (progressValue < 100 && hasReached100) {
-                    progressBar.remove();
-                    progressBar = null;
-                    hasReached100 = false;
-                    console.log('Removed progress bar after 100%');
+                    progressBar.style.display = 'block'; // Re-show the progress bar
+                    console.log('Re-showing progress bar after 100%');
+                    hasReached100 = false; // Reset the flag
                 }
             } else {
                 progressBar = document.createElement('div');

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         s0urce-guadleoupeans-theme
 // @namespace    http://tampermonkey.net/
-// @version      1.0.2
+// @version      1.0.0
 // @description  Official Guadloupeans Empire Theme
 // @author       Wapply & AlphaBay03
 // @match        https://s0urce.io/*
@@ -151,7 +151,6 @@ setInterval(() => {
     });
 }, 1000); // Check every 1 second
 
-
     // Create toggle button
     const toggleBtn = document.createElement('button');
     toggleBtn.id = 'toggleBtn';
@@ -174,19 +173,34 @@ setInterval(() => {
         return titleElement !== null;
     }
 
-    // Function to remove the entire window containing the specified structure
-    function removeHackMessageWindow() {
-        if (!isAutoRemoveEnabled) return; // Exit if auto-remove is disabled
+// Function to remove the entire window containing the specified structure
+function removeHackMessageWindow() {
+    if (!isAutoRemoveEnabled) return; // Exit if auto-remove is disabled
 
-        const elements = document.querySelectorAll('div.window.svelte-1hjm43z.window-selected');
+    const elements = document.querySelectorAll('div.window.svelte-1hjm43z.window-selected');
 
-        // Loop through each matching element for the hack message window and remove it if it matches the structure
-        elements.forEach(element => {
-            if (matchesHackMessageStructure(element)) {
-                element.remove(); // Remove the entire window
+    // Loop through each matching element for the hack message window and remove it if it matches the structure
+    elements.forEach(element => {
+        if (matchesHackMessageStructure(element)) {
+            element.remove(); // Remove the entire window
+
+            // Remove the corresponding "Hacked" taskbar item
+            const taskbarItems = document.querySelectorAll('.taskbar-item.svelte-1azjldn');
+            taskbarItems.forEach(item => {
+                if (item.textContent.includes('Hacked')) {
+                    item.remove(); // Remove the "Hacked" taskbar item
+                    return; // Exit loop once removed
+                }
+            });
+
+            // Auto-click the next "Hacked" taskbar item
+            const nextTaskbarItem = document.querySelector('.taskbar-item.svelte-1azjldn');
+            if (nextTaskbarItem) {
+                nextTaskbarItem.click(); // Click the next "Hacked" taskbar item
             }
-        });
-    }
+        }
+    });
+}
 
     // Update Spotify playlist iframe src using JavaScript
     setInterval(() => {

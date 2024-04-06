@@ -15,12 +15,26 @@
 (function() {
     'use strict';
 
-    // Add custom CSS to modify background image and element styles
-    GM_addStyle(`
+    // Function to add or update CSS
+    function addOrUpdateStyle(css) {
+        const styleElement = document.getElementById('customStyles');
+        if (styleElement) {
+            styleElement.textContent = css;
+        } else {
+            const newStyleElement = document.createElement('style');
+            newStyleElement.id = 'customStyles';
+            newStyleElement.textContent = css;
+            document.head.appendChild(newStyleElement);
+        }
+    }
+
+    // Add custom CSS
+    addOrUpdateStyle(`
         /* Define custom CSS variables */
         :root {
             --color-terminal: #da251c;
             --color-midgreen: #fcfff8;
+            --color-progress-red: #da251c;
         }
 
         /* Modify background image */
@@ -57,9 +71,9 @@
         #toggleBtn {
             position: fixed;
             top: 9px;
-            right: 1000px;
+            right: 275px;
             z-index: 9999;
-            background-color: var(--toggle-btn-color);
+            background-color: var(--color-terminal);
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -68,7 +82,52 @@
             font-size: 16px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
+
+        /* Progress bar styles */
+        #progressBar {
+            position: fixed;
+            top: 9px;
+            left: 58%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 800px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 10px 0;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        #progressBar .progress {
+            height: 100%;
+            background-color: var(--color-progress-red);
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
     `);
+
+    // Check for progress and display it with a progress bar
+    setInterval(() => {
+        const elements = document.querySelectorAll('.message');
+
+        elements.forEach(element => {
+            const progressText = element.textContent.match(/Progress: (\d+\.\d+)%/);
+            if (progressText && progressText[1]) {
+                let progressValue = parseFloat(progressText[1]);
+                progressValue = progressValue > 100 ? 100 : progressValue; // Cap at 100%
+
+                const progressBar = document.getElementById('progressBar');
+                if (progressBar) {
+                    progressBar.querySelector('.progress').style.width = `${progressValue}%`;
+                } else {
+                    const newProgressBar = document.createElement('div');
+                    newProgressBar.id = 'progressBar';
+                    newProgressBar.innerHTML = `<div class="progress" style="width: ${progressValue}%;"></div>`;
+                    document.body.appendChild(newProgressBar);
+                }
+            }
+        });
+    }, 1000); // Check every 1 second
 
     // Create toggle button
     const toggleBtn = document.createElement('button');

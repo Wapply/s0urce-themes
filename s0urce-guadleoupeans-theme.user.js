@@ -87,7 +87,7 @@
         #progressBar {
             position: fixed;
             top: 9px;
-            left: 58%;
+            left: 59%;
             transform: translateX(-50%);
             width: 100%;
             max-width: 800px;

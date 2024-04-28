@@ -35,6 +35,7 @@
             --color-terminal: #da251c;
             --color-midgreen: #fcfff8;
             --color-progress-red: #da251c;
+			--color-green: #f8c400;
         }
 
         /* Modify background image */
